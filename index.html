@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>蓝奏云链接修复</title>
+    <style>
+        input{
+            padding: 9px 9px 9px 9px;
+            font-size: 16px;
+            display: block;
+            border: 1px solid #D6D6D6;
+            width: 100%;
+        }
+        #window{
+            margin:0 auto;
+            height: 70%;
+            width: 100%;
+        }
+        #main{
+            margin:0;
+        }
+        #go{
+            text-align: center;
+            font-size: 16px;
+            background: #0088ff;
+            color: #fff;
+            padding: 0px 0px;
+            border-radius: 3px;
+            text-decoration: none;
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+        }
+        .title{
+            text-align: center;
+            font-size: 18px;
+            color: #999;
+            overflow: hidden;
+        }
+        .title::before,.title::after{
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 1px;
+            box-shadow: 0 0 0 9999px #ccc;
+            vertical-align: middle;
+        }
+        .title::before{
+            margin-right: 10px;
+            clip-path: polygon(0 0, -9999px 0, -9999px 100%, 0 100%);
+        }
+        .title::after{
+            margin-left: 10px;
+            clip-path: polygon(0 0, 9999px 0, 9999px 100%, 0 100%);
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1 style="text-align: center">蓝奏云链接修复</h1>
+        <form name="mainForm"><input name="url" placeholder="请输入失效的链接"></form>
+        <a id="go" onclick="goto_url()">查询</a>
+        <a style="color: #ccc;">注:本项目只能修复因为蓝奏云修改域名而导致的链接失效</a>
+    </div>
+    <div class="title">结果</div>
+    <div id="frame"></div>
+    <script>
+        var reg=/(?<=com\/).*/
+        var frameDiv=document.getElementById('frame')
+        var url_to_repair=''
+        var id=[]
+        function goto_url(){
+            url_to_repair=mainForm.url.value
+            if (url_to_repair.indexOf('lanzou')!=-1){
+                    try{
+                        console.log(url_to_repair)
+                        id=reg.exec(url_to_repair)[0]
+                        frameDiv.innerHTML='<iframe id="window" name="window" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" src="https://www.lanzou.com/'+id+'"></iframe>'
+                    }catch(e){
+                        alert('错误:'+e)
+                    }
+                }else{
+                alert('链接格式错误！')
+            }
+        }
+    </script>
+</body>
+</html>
