@@ -18,18 +18,23 @@
         #main{
             margin:0;
         }
-        #go{
+        .btnDiv{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .btn{
             text-align: center;
             font-size: 16px;
             background: #0088ff;
             color: #fff;
-            padding: 0px 0px;
+            padding:10px 20px;
             border-radius: 3px;
             text-decoration: none;
-            display: block;
-            height: 40px;
-            line-height: 40px;
-            width: 100%;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            width: 35%;
         }
         .title{
             text-align: center;
@@ -59,7 +64,10 @@
     <div id="main">
         <h1 style="text-align: center">蓝奏云链接修复</h1>
         <form name="mainForm"><input name="url" placeholder="请输入失效的链接"></form>
-        <a id="go" onclick="goto_url()">查询</a>
+        <div class="btnDiv">
+            <a class="btn" id="go" onclick="goto_url()">尝试直接跳转</a>
+            <a class="btn" id="find" onclick="find_url()">查询</a>
+        </div>
         <a style="color: #ccc;">注:本项目只能修复因为蓝奏云修改域名而导致的链接失效</a>
     </div>
     <div class="title">结果</div>
@@ -73,7 +81,19 @@
             url_to_repair=mainForm.url.value
             if (url_to_repair.indexOf('lanzou')!=-1){
                     try{
-                        console.log(url_to_repair)
+                        id=reg.exec(url_to_repair)[0]
+                        window.location.href='https://pan.lanzou.com/'+id
+                    }catch(e){
+                        alert('错误:'+e)
+                    }
+                }else{
+                alert('链接格式错误！')
+            }
+        }
+        function find_url(){
+            url_to_repair=mainForm.url.value
+            if (url_to_repair.indexOf('lanzou')!=-1){
+                    try{
                         id=reg.exec(url_to_repair)[0]
                         frameDiv.innerHTML='<iframe id="window" name="window" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" src="https://www.lanzou.com/'+id+'"></iframe>'
                     }catch(e){
